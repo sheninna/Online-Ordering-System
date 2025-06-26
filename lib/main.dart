@@ -33,19 +33,19 @@ class MyApp extends StatelessWidget {
                 child: Row(
                   children: [
                     FoodItem(
-                      image: 'assets/Dessert.png', // Add your image path
+                      image: 'assets/Dessert.png',
                       title: 'Graham',
                     ),
                     FoodItem(
-                      image: 'assets/Pancit_Canton_Bihon_Guisado.png', // Add your image path
+                      image: 'assets/Pancit_Canton_Bihon_Guisado.png',
                       title: 'Bihon',
                     ),
                     FoodItem(
-                      image: 'assets/sweet_and_spicy.png', // Add your image path
+                      image: 'assets/sweet_and_spicy.png',
                       title: 'Sweet & Spicy',
                     ),
                     FoodItem(
-                      image: 'assets/Spaghetti.png', // Add your image path
+                      image: 'assets/Spaghetti.png',
                       title: 'Spaghetti',
                     ),
                   ],
