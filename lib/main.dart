@@ -17,10 +17,14 @@ class MyApp extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
+              SizedBox(height: 100),
+
               Text(
                 'You Might Also Like',
                 style: TextStyle(
-                    fontSize: 24, fontWeight: FontWeight.bold),
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold
+                ),
               ),
               SizedBox(height: 20),
               // Horizontal list of food items
@@ -55,6 +59,26 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class BackgroundClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+    path.lineTo(10, 0);
+    path.quadraticBezierTo(size.width * 0.5, size.height * 0.5, size.width, 0);
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(CustomClipper<Path> oldClipper) {
+    return false;
+  }
+}
+
+
+
 class FoodItem extends StatelessWidget {
   final String image;
   final String title;
@@ -69,12 +93,12 @@ class FoodItem extends StatelessWidget {
       child: Column(
         children: [
           Image.asset(image, width: 150, height: 150, fit: BoxFit.cover),
-          SizedBox(height: 10), // Fixed: Closing parenthesis and no child here
+          SizedBox(height: 10),
           Text(
             title,
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
-          SizedBox(height: 10), // Fixed: Closing parenthesis
+          SizedBox(height: 10),
           ElevatedButton(
             onPressed: () {},
             child: Text('Order Now'),
