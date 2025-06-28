@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Ordernow extends StatelessWidget {
-  const Ordernow({super.key});
+class Password extends StatelessWidget {
+  const Password({super.key});
 
   @override
   Widget build(BuildContext context) {
