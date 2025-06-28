@@ -1,7 +1,29 @@
 import 'package:flutter/material.dart';
+import 'pages/landingpage.dart';
+import 'pages/contactus.dart';
+import 'pages/notifications.dart';
+
 
 void main() {
   runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'LomiHub',
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/login',
+      routes: {
+        '/landingpage': (context) => const Landingpage(),
+        '/contactus': (context) => const ContactUs(),
+        '/notifications': (context) => const Notifications(),
+      },
+    );
+  }
 }
 
 class MyApp extends StatelessWidget {
