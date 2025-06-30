@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
-class Password extends StatelessWidget {
-  const Password({super.key});
+class Account extends StatefulWidget {
+  const Account({super.key});
+
+  @override
+  State<Account> createState() => _AccountState();
+}
+
+class _AccountState extends State<Account> {
+  int selectedIndex = 0;
+  late PageController _pageController;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +22,7 @@ class Password extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: Row(
           children: [
-            Image.asset('assets/images/logo.jpg', height: 50),
+            Image.asset('lib/assets/images/logo.jpg', height: 50),
           ],
         ),
         actions: isMobile
@@ -40,7 +48,7 @@ class Password extends StatelessWidget {
             _drawerItem(context, 'Order Now', '/ordernow'),
             _drawerItem(context, 'Contact Us', '/contactus'),
             _iconItem(context, 'Notifications', Icons.notifications, '/notifications'),
-            _iconItem(context, 'Account', Icons.account_circle, '/profile'),
+            _iconItem(context, 'Account', Icons.account_circle, '/account'),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
@@ -54,6 +62,12 @@ class Password extends StatelessWidget {
       ),
     );
   }
+
+  //JEMARC
+
+  //JOVAN
+
+  //ARIEL
 
   Widget _drawerItem(BuildContext context, String title, String route) {
     return ListTile(

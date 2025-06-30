@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class Notifications extends StatelessWidget {
-  const Notifications ({super.key});
+class Notifications extends StatefulWidget {
+  const Notifications({super.key});
 
   @override
   State<Notifications> createState() => _NotificationsState();
@@ -9,7 +9,7 @@ class Notifications extends StatelessWidget {
 
 class _NotificationsState extends State<Notifications> {
   // Placeholder for notifications structure (even if empty)
-  List<Map<String, dynamic>> _notifications = [];
+  final List<Map<String, dynamic>> _notifications = [];
 
   void _markAllAsRead() {
     setState(() {
@@ -36,7 +36,7 @@ class _NotificationsState extends State<Notifications> {
         automaticallyImplyLeading: false,
         title: Row(
           children: [
-            Image.asset('assets/images/logo.jpg', height: 50),
+            Image.asset('lib/assets/images/logo.jpg', height: 50),
           ],
         ),
         actions: isMobile
@@ -61,7 +61,7 @@ class _NotificationsState extends State<Notifications> {
             _drawerItem(context, 'Order Now', '/ordernow'),
             _drawerItem(context, 'Contact Us', '/contactus'),
             _iconItem(context, 'Notifications', Icons.notifications, '/notifications'),
-            _iconItem(context, 'Account', Icons.account_circle, '/profile'),
+            _iconItem(context, 'Account', Icons.account_circle, '/account'),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
@@ -73,6 +73,7 @@ class _NotificationsState extends State<Notifications> {
           ],
         ),
       ),
+
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 24),
         child: Column(

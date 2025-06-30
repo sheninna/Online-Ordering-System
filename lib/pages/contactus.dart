@@ -39,7 +39,7 @@ class ContactUs extends StatelessWidget {
             _drawerItem(context, 'Order Now', '/ordernow'),
             _drawerItem(context, 'Contact Us', '/contactus'),
             _iconItem(context, 'Notifications', Icons.notifications, '/notifications'),
-            _iconItem(context, 'Account', Icons.account_circle, '/profile'),
+            _iconItem(context, 'Account', Icons.account_circle, '/account'),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),

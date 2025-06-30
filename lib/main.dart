@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:online_ordering_system/pages/ordernow.dart';
 import 'pages/landingpage.dart';
 import 'pages/contactus.dart';
 import 'pages/notifications.dart';
@@ -7,9 +8,6 @@ import 'pages/notifications.dart';
 void main() {
   runApp(MyApp());
 }
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +19,10 @@ class MyApp extends StatelessWidget {
         '/landingpage': (context) => const Landingpage(),
         '/contactus': (context) => const ContactUs(),
         '/notifications': (context) => const Notifications(),
+        '/ordernow': (context) => const Ordernow(),
       },
     );
   }
-}
 
 class MyApp extends StatelessWidget {
   @override
