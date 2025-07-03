@@ -16,16 +16,22 @@ class _OrdernowState extends State<Ordernow> {
     'Bihon': 0,
     'Tapsilog': 0,
     'Hotsilog': 0,
+    'Siomai Silog': 0,
+    'Siomai Rice': 0,
   };
 
   final List<Map<String, String>> dishes = [
-    {'name': 'Lomi', 'price': '₱75.00', 'image': 'lib/assets/images/logo.jpg'},
-    {'name': 'Sweet & Spicy', 'price': '₱75.00', 'image': 'lib/assets/images/sweet_spicy.png'},
-    {'name': 'Plain', 'price': '₱75.00', 'image': 'lib/assets/images/plain.png'},
-    {'name': 'Bihon', 'price': '₱75.00', 'image': 'lib/assets/images/bihon.png'},
-    {'name': 'Tapsilog', 'price': '₱75.00', 'image': 'lib/assets/images/tapsilog.png'},
-    {'name': 'Hotsilog', 'price': '₱75.00', 'image': 'lib/assets/images/hotsilog.png'},
+    {'name': 'Lomi', 'price': '₱75.00', 'image': 'lib/assets/images/lomi.jpg'},
+    {'name': 'Sweet & Spicy', 'price': '₱75.00', 'image': 'lib/assets/images/sweetnspicy.jpg'},
+    {'name': 'Plain', 'price': '₱75.00', 'image': 'lib/assets/images/plain.jpg'},
+    {'name': 'Bihon', 'price': '₱75.00', 'image': 'lib/assets/images/bihon.jpg'},
+    {'name': 'Tapsilog', 'price': '₱75.00', 'image': 'lib/assets/images/tapsilog.jpg'},
+    {'name': 'Hotsilog', 'price': '₱75.00', 'image': 'lib/assets/images/hotsilog.jpg'},
+    {'name': 'Siomai Silog', 'price': '₱75.00', 'image': 'lib/assets/images/siomai_silog.jpg'},
+    {'name': 'Siomai Rice', 'price': '₱75.00', 'image': 'lib/assets/images/siomairice.jpg'},
   ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +89,7 @@ class _OrdernowState extends State<Ordernow> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Row(
-              children: ['Dishes', '', ''].map((category) {
+              children: ['Dishes', 'Bilao', 'Desserts'].map((category) {
                 final isSelected = selectedCategory == category;
                 return Expanded(
                   child: GestureDetector(
@@ -113,20 +119,20 @@ class _OrdernowState extends State<Ordernow> {
           ),
           const SizedBox(height: 16),
 
-          // Dishes Grid
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 10),
               child: GridView.count(
                 crossAxisCount: isMobile ? 2 : 3,
                 mainAxisSpacing: 12,
                 crossAxisSpacing: 12,
-                childAspectRatio: 0.75,
+                childAspectRatio: 0.85,
                 children: dishes.map((dish) {
                   final name = dish['name']!;
                   return Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
+                      border: Border.all(color: Colors.black38),
                       borderRadius: BorderRadius.circular(16),
                       boxShadow: const [
                         BoxShadow(
@@ -136,38 +142,79 @@ class _OrdernowState extends State<Ordernow> {
                         ),
                       ],
                     ),
+
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(height: 10),
-                        Image.asset(dish['image']!, height: 105, fit: BoxFit.cover),
+                        Image.asset(dish['image']!, height: 100, fit: BoxFit.cover),
                         const SizedBox(height: 10),
-                        Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
-                        Text(dish['price']!, style: const TextStyle(color: Colors.black54)),
-                        const SizedBox(height: 10),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                              icon: const Icon(Icons.remove_circle_outline),
-                              onPressed: () {
-                                setState(() {
-                                  if (quantities[name]! > 1) {
-                                    quantities[name] = quantities[name]! - 1;
-                                  }
-                                });
-                              },
-                            ),
-                            Text('${quantities[name]}'),
-                            IconButton(
-                              icon: const Icon(Icons.add_circle_outline),
-                              onPressed: () {
-                                setState(() {
-                                  quantities[name] = quantities[name]! + 1;
-                                });
-                              },
-                            ),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    name,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16),
+                                  ),
+                                  Text(
+                                    dish['price']!,
+                                    style: const TextStyle(color: Colors.black,),
+                                  ),
+                                ],
+                              ),
+
+                              Row(
+                                children: [
+
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        if (quantities[name]! > 0) {
+                                          quantities[name] = quantities[name]! - 1;
+                                        }
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(6),
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFFEFCA6C), // Yellow background
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Icon(Icons.remove, size: 10),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text('${quantities[name]}'),
+                                  const SizedBox(width: 8),
+                                  // Plus Button
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        quantities[name] = quantities[name]! + 1;
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(6),
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFFEFCA6C), // Yellow background
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: const Icon(Icons.add, size: 12),
+                                    ),
+                                  ),
+                                ],
+                              ),
+
+                            ],
+                          ),
                         ),
                       ],
                     ),
