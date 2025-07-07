@@ -12,6 +12,18 @@ class _AccountState extends State<Account> {
   late PageController _pageController;
 
   @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: selectedIndex);
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final bool isMobile = MediaQuery.of(context).size.width < 768;
 
@@ -36,7 +48,6 @@ class _AccountState extends State<Account> {
         ]
             : null,
       ),
-
       endDrawer: Drawer(
         backgroundColor: const Color(0xFFEFCA6C),
         width: 200,
@@ -48,7 +59,7 @@ class _AccountState extends State<Account> {
             _drawerItem(context, 'Order Now', '/ordernow'),
             _drawerItem(context, 'Contact Us', '/contactus'),
             _iconItem(context, 'Notifications', Icons.notifications, '/notifications'),
-            _iconItem(context, 'Account', Icons.account_circle, '/account'),
+            _iconItem(context, 'Account', Icons.account_circle, '/profile'),
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Logout'),
@@ -60,14 +71,65 @@ class _AccountState extends State<Account> {
           ],
         ),
       ),
+
+      body: Column(
+        children: [
+          const SizedBox(height: 20),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildToggleButton('Profile', 0),
+              _buildToggleButton('Password', 1),
+              _buildToggleButton('Orders', 2),
+              _buildToggleButton('Order History', 3),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Expanded(
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              children: [
+                _buildProfileSection(),
+                const Center(child: Text('Password Section')),
+                const Center(child: Text('Orders Section')),
+                const Center(child: Text('Order History Section')),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  //JEMARC
+  Widget _buildToggleButton(String label, int index) {
+    return OutlinedButton(
+      onPressed: () {
+        setState(() {
+          selectedIndex = index;
+        });
+        _pageController.animateToPage(
+          index,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      },
+      style: OutlinedButton.styleFrom(
+        backgroundColor: selectedIndex == index ? const Color(0xFFEFCA6C) : null,
+        foregroundColor: Colors.black,
+      ),
+      child: Text(label),
+    );
+  }
 
-  //JOVAN
+  Widget _buildProfileSection() => const SingleChildScrollView(
+    padding: EdgeInsets.all(24),
+  );
 
-  //ARIEL
 
   Widget _drawerItem(BuildContext context, String title, String route) {
     return ListTile(
