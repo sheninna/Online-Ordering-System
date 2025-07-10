@@ -11,6 +11,18 @@ class _AccountState extends State<Account> {
   int selectedIndex = 0;
   late PageController _pageController;
 
+  bool isEditing = false;
+
+
+  final TextEditingController nameController =
+  TextEditingController(text: 'Jane Doe');
+  final TextEditingController emailController =
+  TextEditingController(text: 'jane@example.com');
+  final TextEditingController addressController =
+  TextEditingController(text: '123 Main Street');
+  final TextEditingController phoneController =
+  TextEditingController(text: '+63 912 345 6789');
+
   @override
   void initState() {
     super.initState();
@@ -20,7 +32,17 @@ class _AccountState extends State<Account> {
   @override
   void dispose() {
     _pageController.dispose();
+    nameController.dispose();
+    emailController.dispose();
+    addressController.dispose();
+    phoneController.dispose();
     super.dispose();
+  }
+
+  void _toggleEdit() {
+    setState(() {
+      isEditing = !isEditing;
+    });
   }
 
   @override
@@ -126,10 +148,59 @@ class _AccountState extends State<Account> {
     );
   }
 
-  Widget _buildProfileSection() => const SingleChildScrollView(
-    padding: EdgeInsets.all(24),
-  );
+  Widget _buildProfileSection() {
 
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Profile', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 35),
+          _profileField('Name', nameController),
+          _profileField('Email', emailController),
+          _profileField('Address', addressController),
+          _profileField('Phone Number', phoneController),
+          const SizedBox(height: 20),
+          Center(
+            child: ElevatedButton(
+              onPressed: _toggleEdit,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFFEFCA6C),
+                foregroundColor: Colors.black,
+                padding: const EdgeInsets.symmetric(horizontal: 48, vertical: 14),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+              ),
+              child: Text(isEditing ? 'SAVE' : 'EDIT', style: const TextStyle(fontSize: 16)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _profileField(String label, TextEditingController controller) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(label, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+          const SizedBox(height: 8),
+          TextField(
+            enabled: isEditing,
+            controller: controller,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+              border: OutlineInputBorder(borderRadius: BorderRadius.circular(8)),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   Widget _drawerItem(BuildContext context, String title, String route) {
     return ListTile(
